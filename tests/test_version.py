@@ -7,6 +7,7 @@
 
 """Simple test of version import."""
 
+
 def test_version():
     """Test version import."""
     from coons import __version__

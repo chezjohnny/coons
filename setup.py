@@ -45,8 +45,7 @@ setup(
             'coons = coons.theme.views:blueprint',
         ],
         'invenio_assets.webpack': [
-            'coons_theme = coons.theme.webpack:theme',
-            'coons_search_app = coons.records.webpack:search_app',
+            'coons_theme = coons.theme.webpack:theme'
         ],
         'invenio_config.module': [
             'coons = coons.config',

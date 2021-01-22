@@ -41,49 +41,51 @@ def _get_record(client, pid_value):
     return rec
 
 
-def test_record_creation(client, location):
-    """Test create record using REST API."""
-    pid_value, rec = _create_record(client)
-    assert "_bucket" not in rec
-    assert "files" not in rec
-    assert "$schema" not in rec['metadata']
+# def test_record_creation(client, location):
+#     """Test create record using REST API."""
+#     pid_value, rec = _create_record(client)
+#     assert "_bucket" not in rec
+#     assert "files" not in rec
+#     assert "$schema" not in rec['metadata']
 
-    # retrieve record
-    rec = _get_record(client, pid_value)
-    assert "_bucket" not in rec
-    assert "files" not in rec
-    assert "$schema" not in rec['metadata']
+#     # retrieve record
+#     rec = _get_record(client, pid_value)
+#     assert "_bucket" not in rec
+#     assert "files" not in rec
+#     assert "$schema" not in rec['metadata']
 
 
-def test_files_creation_deletion(client, location):
-    """Test that files are in record metadata."""
-    pid_value, _ = _create_record(client)
+# def test_files_creation_deletion(client, location):
+#     """Test that files are in record metadata."""
+#     pid_value, _ = _create_record(client)
 
-    # add a file
-    headers = [("Content-Type", "application/octet-stream")]
-    data = BytesIO(b"my file contents")
-    url = "https://localhost:5000/records/{}/files/test.jpg".format(pid_value)
-    response = client.put(url, input_stream=data, headers=headers)
-    assert response.status_code == 200
+#     # add a file
+#     headers = [("Content-Type", "application/octet-stream")]
+#     data = BytesIO(b"my file contents")
+#     url = "https://localhost:5000/records/{}/files/test.jpg".format(
+#            pid_value)
+#     response = client.put(url, input_stream=data, headers=headers)
+#     assert response.status_code == 200
 
-    # retrieve record and files
-    rec = _get_record(client, pid_value)
-    assert "_bucket" not in rec
-    assert "files" in rec
-    first_file = rec["files"][0]
-    first_file["key"] = "test.jpg"
+#     # retrieve record and files
+#     rec = _get_record(client, pid_value)
+#     assert "_bucket" not in rec
+#     assert "files" in rec
+#     first_file = rec["files"][0]
+#     first_file["key"] = "test.jpg"
 
-    # Check if the files link is present
-    files_link = 'https://localhost:5000/records/1/files'
-    assert rec['links']['files'] == files_link
+#     # Check if the files link is present
+#     files_link = 'https://localhost:5000/records/1/files'
+#     assert rec['links']['files'] == files_link
 
-    # delete file
-    headers = [("Content-Type", "application/octet-stream")]
-    url = "https://localhost:5000/records/{}/files/test.jpg".format(pid_value)
-    response = client.delete(url, headers=headers)
-    assert response.status_code == 204
+#     # delete file
+#     headers = [("Content-Type", "application/octet-stream")]
+#     url = "https://localhost:5000/records/{}/files/test.jpg".format(
+#         pid_value)
+#     response = client.delete(url, headers=headers)
+#     assert response.status_code == 204
 
-    # retrieve record and files
-    rec = _get_record(client, pid_value)
-    assert "_bucket" not in rec
-    assert rec["files"] == []
+#     # retrieve record and files
+#     rec = _get_record(client, pid_value)
+#     assert "_bucket" not in rec
+#     assert rec["files"] == []

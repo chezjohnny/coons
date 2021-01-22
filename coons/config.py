@@ -56,7 +56,7 @@ SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 # Theme configuration
 # ===================
 #: The Invenio theme.
-APP_THEME = ['semantic-ui']
+APP_THEME = ['bootstrap3']
 #: Site name.
 THEME_SITENAME = _('Coons')
 #: Use default frontpage.
