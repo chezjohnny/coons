@@ -1,0 +1,27 @@
+/*
+ *   Copyright (C) 2021 Johnny Mariéthoz.
+ *
+ * Coons is free software; you can redistribute it and/or modify it under the
+ * terms of the MIT License; see LICENSE file for more details.
+ */
+
+
+// Check out https://github.com/inveniosoftware/invenio-theme/blob/master/invenio_theme/assets/scss/invenio_theme
+@import "variables";
+@import "../invenio_theme/styles";
+
+
+.hide-on-collapsed {
+	display: block;
+}
+.show-on-collapsed {
+	display: none;
+}
+.panel-toggle.collapsed {
+	.hide-on-collapsed {
+		display: none;
+	}
+	.show-on-collapsed {
+		display: block;
+	}
+}
