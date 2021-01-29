@@ -1,0 +1,61 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2015-2018 CERN.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- macro record_content(data) %}
+{% for key, value in data.items() recursive %}
+<li class="list-group-item">
+  {% if value is mapping %}
+  <strong>{{ key }}:</strong>
+  <ul class="list-group">{{ loop(value.items()) }}</ul>
+  {% elif value is iterable and value is not string %}
+  <strong>{{ key }}:</strong>
+  <ol>
+    {% for item in value %}
+    <li>
+      {% if item is mapping %}
+      <ul class="list-group">
+        {{ record_content(item) }}
+      </ul>
+      {% else %}
+      {{ item }}
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+  {% else %}
+  <strong>{{ key }}:</strong> {{ value }}
+  {% endif %}
+</li>
+{% endfor %}
+{%- endmacro %}
+
+{%- block page_body %}
+<div class="container">
+  {%- block record_title %}
+  <h2>
+    {{ record.metadata.name }}
+  </h2>
+  <span class="label label-primary">{{ record.metadata.type }}</span>
+  {%- endblock %}
+  {%- block record_body %}
+  {% if record %}
+  <h5>Files</h5>
+  <ul class="list-group">
+    {% for file in record.files %}
+    <li class="list-group-item"><a
+        href="/api/objects/{{record.pid.pid_value}}/files/{{file}}/content">{{ record.files[file].metadata.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% endif %}
+  {%- endblock %}
+</div>
+{%- endblock %}

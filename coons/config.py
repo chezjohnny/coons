@@ -67,6 +67,14 @@ THEME_FRONTPAGE_TITLE = _('🦝 Coons')
 #: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'coons/frontpage.html'
 
+# UI
+# ==
+#: Configure the search engine endpoint
+SEARCH_UI_SEARCH_API = '/api/objects'
+
+#: Configure the results template
+SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/coons/results.html'
+
 # Email configuration
 # ===================
 #: Email address for support.
@@ -77,7 +85,8 @@ MAIL_SUPPRESS_SEND = True
 # Assets
 # ======
 #: Static files collection method (defaults to copying files).
-COLLECT_STORAGE = 'flask_collect.storage.file'
+# COLLECT_STORAGE = 'flask_collect.storage.file'
+COLLECT_STORAGE = 'flask_collect.storage.link'
 
 # Accounts
 # ========
@@ -169,3 +178,19 @@ APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {
     'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
     'font-src': ["'self'", "data:", "https://fonts.gstatic.com"],
 }
+
+#: for legacy compatibility
+RECORDS_REST_ENDPOINTS = {}
+
+#: record detailed views
+RECORDS_UI_ENDPOINTS = {
+    "docid": {
+        "pid_type": "recid",
+        "route": "/objects/<pid_value>",
+        "template": "bootstrap3/coons/detail.html",
+        "record_class": "coons.resources.objects.api.RecordWithFile"
+    }
+}
+
+# TODO: remove this in production
+RATELIMIT_ENABLED = False

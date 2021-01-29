@@ -13,12 +13,12 @@ script_path=$(dirname "$0")
 export FLASK_ENV=development
 
 # Start Worker and Server
-pipenv run celery -A invenio_app.celery worker -l INFO & pid_celery=$!
+#pipenv run celery -A invenio_app.celery worker -l INFO & pid_celery=$!
 
 pipenv run invenio run \
        --cert "$script_path"/../docker/nginx/test.crt \
-       --key "$script_path"/../docker/nginx/test.key & pid_server=$!
+       --key "$script_path"/../docker/nginx/test.key #& pid_server=$!
 
-trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
+#trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
 
-wait $pid_celery $pid_server
+#wait $pid_celery $pid_server

@@ -1,0 +1,28 @@
+<!--
+  This file is part of Invenio.
+  Copyright (C) 2015-2018 CERN.
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+-->
+<ul class="list-unstyled">
+  <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <!-- FIXME find a better way to set the record url -->
+    <h3>
+      <a target="_self" ng-href="/objects/{{ record.id }}">{{ record.metadata.name }}</a>
+    </h3>
+    <span class="label label-primary">{{ record.metadata.type }}</span>
+    <div class="text-right">
+      <ul class="list-inline">
+        <li>
+          <a ng-click="showSource=!showSource">
+            {{ showSource ? 'Hide source' : 'Show source' }}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div ng-hide="!showSource">
+      <pre>{{ record | json }}</pre>
+    </div>
+    <hr />
+  </li>
+</ul>

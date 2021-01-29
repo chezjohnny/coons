@@ -1,0 +1,52 @@
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "text"
+          },
+          "type": {
+            "type": "keyword"
+          },
+          "objects": {
+            "type": "object",
+            "properties": {
+              "predicate": {
+                "type": "keyword"
+              },
+              "$ref": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "text"
+              }
+            }
+          }
+        }
+      },
+      "files": {
+        "type": "object"
+      },
+      "created": {
+        "type": "date"
+      },
+      "updated": {
+        "type": "date"
+      },
+      "uuid": {
+        "type": "keyword"
+      },
+      "version_id": {
+        "type": "integer"
+      }
+    }
+  }
+}

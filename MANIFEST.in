@@ -31,6 +31,7 @@ include Pipfile
 include Pipfile.lock
 include pytest.ini
 include scripts/bootstrap
+include scripts/populate
 include scripts/console
 include scripts/server
 include scripts/setup
@@ -51,3 +52,6 @@ recursive-include coons *.json *.html *.js *.scss
 recursive-include coons *.png *.jpg *.svg
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
 recursive-include tests *.py
+recursive-include coons *.py
+recursive-include data *.pdf
+recursive-include data *.png
