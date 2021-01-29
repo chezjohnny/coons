@@ -40,9 +40,16 @@ setup(
             'coons = invenio_app.cli:cli',
         ],
         'invenio_base.apps': [
+            'coons = coons.ext:Coons'
+        ],
+        'invenio_base.api_apps': [
+            'coons = coons.ext:CoonsAPI'
         ],
         'invenio_base.blueprints': [
             'coons = coons.theme.views:blueprint',
+        ],
+        'invenio_base.api_blueprints': [
+            'sticky = coons.users.views:api_blueprint',
         ],
         'invenio_assets.webpack': [
             'coons_theme = coons.theme.webpack:theme'
@@ -53,6 +60,19 @@ setup(
         'invenio_i18n.translations': [
             'messages = coons',
         ],
+        'invenio_db.model': [
+            'objects = coons.resources.objects.models',
+            'sticky_objects = coons.users.models',
+        ],
+        'invenio_jsonschemas.schemas': [
+            'objects = coons.resources.objects.jsonschemas',
+        ],
+        'invenio_search.mappings': [
+            'objects = coons.resources.objects.mappings',
+        ],
+        'flask.commands': [
+            'objects = coons.resources.objects.cli:objects'
+        ]
     },
     classifiers=[
         'Environment :: Web Environment',

@@ -3,8 +3,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-#[requires]
-#python_version = ">=3.6.0,<3.8"
+# [requires]
+# python_version = ">=3.6.0"
 
 [packages]
 invenio = { version = ">=3.4.0,<3.5.0", extras = ["base", "auth", "metadata", "files", "postgresql", "elasticsearch7" ]}
@@ -13,11 +13,30 @@ marshmallow = ">=3.0.0,<4.0.0"
 uwsgi = ">=2.0"
 uwsgi-tools = ">=1.1.1"
 uwsgitop = ">=0.11"
+invenio-records-resources = {extras = ["elasticsearch7", "postgresql"], version = "*"}
 
 [dev-packages]
 pytest-invenio = ">=1.4.1,<1.5.0"
 Sphinx = ">=3.0.0,<4"
+# ipython bug
+jedi = "<0.18.0"
+parso = "<0.8.0"
 
 [scripts]
 test = "pytest"
+dtest = "pytest --no-cov -vvs tests"
 build_sphinx = "python setup.py build_sphinx"
+tup = "docker-services-cli up --db postgresql --search elasticsearch --cache redis --mq rabbitmq --env"
+tdown = "docker-services-cli down"
+up = "docker-compose up -d"
+down = "docker-compose down"
+stop = "docker-compose stop"
+fixisort = "isort -rc coons tests"
+bootstrap = "./scripts/bootstrap"
+setup = "./scripts/setup"
+console = "./scripts/console"
+server = "./scripts/server"
+populate = "./scripts/populate"
+
+[pipenv]
+allow_prereleases = true
