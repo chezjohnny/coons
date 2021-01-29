@@ -58,11 +58,12 @@ SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 #: The Invenio theme.
 APP_THEME = ['bootstrap3']
 #: Site name.
-THEME_SITENAME = _('Coons')
+THEME_SITENAME = _('🦝 Coons')
+THEME_LOGO = 'images/logo.svg'
 #: Use default frontpage.
 THEME_FRONTPAGE = True
 #: Frontpage title.
-THEME_FRONTPAGE_TITLE = _('Coons')
+THEME_FRONTPAGE_TITLE = _('🦝 Coons')
 #: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'coons/frontpage.html'
 
