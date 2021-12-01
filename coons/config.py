@@ -41,39 +41,39 @@ I18N_LANGUAGES = [
 ]
 
 # Base templates
-# ==============
-#: Global base template.
-BASE_TEMPLATE = 'invenio_theme/page.html'
-#: Cover page base template (used for e.g. login/sign-up).
-COVER_TEMPLATE = 'invenio_theme/page_cover.html'
-#: Footer base template.
-FOOTER_TEMPLATE = 'invenio_theme/footer.html'
-#: Header base template.
-HEADER_TEMPLATE = 'invenio_theme/header.html'
-#: Settings base template.
-SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+# # ==============
+# #: Global base template.
+# BASE_TEMPLATE = 'invenio_theme/page.html'
+# #: Cover page base template (used for e.g. login/sign-up).
+# COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+# #: Footer base template.
+# FOOTER_TEMPLATE = 'invenio_theme/footer.html'
+# #: Header base template.
+# HEADER_TEMPLATE = 'invenio_theme/header.html'
+# #: Settings base template.
+# SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 
-# Theme configuration
-# ===================
-#: The Invenio theme.
+# # Theme configuration
+# # ===================
+# #: The Invenio theme.
 APP_THEME = ['bootstrap3']
-#: Site name.
+# #: Site name.
 THEME_SITENAME = _('🦝 Coons')
 THEME_LOGO = 'images/logo.svg'
-#: Use default frontpage.
+# #: Use default frontpage.
 THEME_FRONTPAGE = True
-#: Frontpage title.
+# #: Frontpage title.
 THEME_FRONTPAGE_TITLE = _('🦝 Coons')
-#: Frontpage template.
+# #: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'coons/frontpage.html'
 
 # UI
 # ==
 #: Configure the search engine endpoint
-SEARCH_UI_SEARCH_API = '/api/objects'
+# SEARCH_UI_SEARCH_API = '/api/objects'
 
 #: Configure the results template
-SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/coons/results.html'
+# SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/coons/results.html'
 
 # Email configuration
 # ===================
@@ -106,22 +106,22 @@ ACCOUNTS_USERINFO_HEADERS = True
 # Celery configuration
 # ====================
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
-#: URL of message broker for Celery (default is RabbitMQ).
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
-#: URL of backend for result storage (default is Redis).
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
-#: Scheduled tasks configuration (aka cronjobs).
-CELERY_BEAT_SCHEDULE = {
-    'indexer': {
-        'task': 'invenio_indexer.tasks.process_bulk_queue',
-        'schedule': timedelta(minutes=5),
-    },
-    'accounts': {
-        'task': 'invenio_accounts.tasks.clean_session_table',
-        'schedule': timedelta(minutes=60),
-    },
-}
+# BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+# #: URL of message broker for Celery (default is RabbitMQ).
+# CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+# #: URL of backend for result storage (default is Redis).
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
+# #: Scheduled tasks configuration (aka cronjobs).
+# CELERY_BEAT_SCHEDULE = {
+#     'indexer': {
+#         'task': 'invenio_indexer.tasks.process_bulk_queue',
+#         'schedule': timedelta(minutes=5),
+#     },
+#     'accounts': {
+#         'task': 'invenio_accounts.tasks.clean_session_table',
+#         'schedule': timedelta(minutes=60),
+#     },
+# }
 
 # Database
 # ========
@@ -154,12 +154,12 @@ APP_ALLOWED_HOSTS = ['coons.io', 'localhost', '127.0.0.1']
 
 # OAI-PMH
 # =======
-OAISERVER_ID_PREFIX = 'oai:coons.io:'
+# OAISERVER_ID_PREFIX = 'oai:coons.io:'
 
 # Previewers
 # ==========
 #: Include IIIF preview for images.
-PREVIEWER_PREFERENCE = ['iiif_image'] + BASE_PREFERENCE
+# PREVIEWER_PREFERENCE = ['iiif_image'] + BASE_PREFERENCE
 
 # Debug
 # =====
@@ -179,18 +179,18 @@ APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {
     'font-src': ["'self'", "data:", "https://fonts.gstatic.com"],
 }
 
-#: for legacy compatibility
-RECORDS_REST_ENDPOINTS = {}
+# #: for legacy compatibility
+# RECORDS_REST_ENDPOINTS = {}
 
-#: record detailed views
-RECORDS_UI_ENDPOINTS = {
-    "docid": {
-        "pid_type": "recid",
-        "route": "/objects/<pid_value>",
-        "template": "bootstrap3/coons/detail.html",
-        "record_class": "coons.resources.objects.api.RecordWithFile"
-    }
-}
+# #: record detailed views
+# RECORDS_UI_ENDPOINTS = {
+#     "docid": {
+#         "pid_type": "recid",
+#         "route": "/objects/<pid_value>",
+#         "template": "bootstrap3/coons/detail.html",
+#         "record_class": "coons.resources.objects.api.RecordWithFile"
+#     }
+# }
 
 # TODO: remove this in production
 RATELIMIT_ENABLED = False

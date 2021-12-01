@@ -12,7 +12,7 @@ templates and static files located in the folders of the same names next to
 this file.
 """
 
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 blueprint = Blueprint(
     'coons',
@@ -20,3 +20,10 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.route('/u/', defaults={'path': ''})
+@blueprint.route('/u/<path:path>')
+def users(path):
+    """Return professional view."""
+    return render_template('coons/u.html')

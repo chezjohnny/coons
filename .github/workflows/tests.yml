@@ -25,7 +25,7 @@ jobs:
           # a new item to the following lists.
           # You can see the complete list of services and versions that are available at:
           # https://docker-services-cli.readthedocs.io/en/latest/configuration.html
-          python-version: [3.8]
+          python-version: [3.9]
           requirements-level: [min, pypi]
           db-service: [postgresql11]
           search-service: [elasticsearch7]
@@ -35,7 +35,7 @@ jobs:
           # build. Doing this will help keeping the number of jobs down.
           # E.g. removing 3.8 - min combination will avoid 8 jobs to be submited
           # [3.8] * [min] * [postgresql9, postgresql11, mysql5, mysql8] * [elasticsearch6, elasticsearch7]
-          - python-version: 3.8
+          - python-version: 3.9
             requirements-level: min
 
           include:
