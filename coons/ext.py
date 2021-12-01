@@ -7,6 +7,8 @@
 
 """Coons Main Application."""
 
+from .theme.filters import node_assets
+
 
 class Coons(object):
     """coons extension."""
@@ -16,6 +18,7 @@ class Coons(object):
         self.resources = {}
         if app:
             self.init_app(app)
+            app.add_template_global(node_assets, name='node_assets')
 
     def init_app(self, app):
         """Flask application initialization."""

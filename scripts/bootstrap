@@ -5,28 +5,43 @@
 #
 # Coons is free software; you can redistribute it and/or modify it under the
 # terms of the MIT License; see LICENSE file for more details.
+source $(dirname "$0")/functions
 
 set -e
 
+title "Bootstrap script"
 
 script_path=$(dirname "$0")
 pipfile_lock_path="$script_path/../Pipfile.lock"
 
 if [ ! -f $pipfile_lock_path ]; then
-    echo "'Pipfile.lock' not found. Generating via 'pipenv lock --dev'..."
+    message "'Pipfile.lock' not found. Generating via 'pipenv lock --dev'..." "warning"
     pipenv lock --dev
 fi
 
 # Installs all packages specified in Pipfile.lock
+section "Installing dependencies" "info"
 pipenv sync --dev
 
 # Install application code and entrypoints from 'setup.py'
+section "Installing the application" "info"
 pipenv run pip install -e $script_path/..
 
 # Ensure assets are symlinked by default
 export FLASK_ENV=development
 
+# install the npm dependencies
+section "Search static folder location" "info"
+static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)" 2> /dev/null  |grep static_folder| cut -d: -f2-)
+
+section "Install angular application into ${static_folder}" "info"
+npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ../coons-ui/dist/coons-ui/coons-ui-core-1.0.0-alpha.0.tgz  --prefix "${static_folder}"
+
 # Build assets
-pipenv run invenio collect -v
+section "Collect static files" "info"
+FLASK_DEBUG=False PYTHONWARNINGS="ignore"  pipenv run invenio collect -v
+
+section "Install webpack assets" "info"
 pipenv run invenio webpack clean buildall
 
+message "\nBootstrap finished successfully" "success"

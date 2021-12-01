@@ -31,6 +31,7 @@ include Pipfile
 include Pipfile.lock
 include pytest.ini
 include scripts/bootstrap
+include scripts/functions
 include scripts/populate
 include scripts/console
 include scripts/server

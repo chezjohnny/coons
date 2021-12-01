@@ -35,6 +35,12 @@ Elasticsearch 7, RabbitMQ and Redis):
         <enter>
         linut00001:~# sysctl -w vm.max_map_count=262144
 
+Next, you nedd to create the bundle of the ui part (the two projects coons and coons-ui should be in the same directory):
+
+.. code-block:: console
+
+    $ cd .. && git clone git@github.com:chezjohnny/coons-ui.git && cd coons-ui
+    $ npm ci && npm run pack
 
 Next, bootstrap the instance (this will install all Python dependencies and
 build all static assets):
@@ -62,6 +68,14 @@ Start a Python shell:
 .. code-block:: console
 
     $ ./scripts/console
+
+Fixtures data
+-------------
+Load the data in the development server:
+
+.. code-block:: console
+
+    $ ./scripts/populate
 
 Upgrading
 ---------
