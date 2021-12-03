@@ -28,6 +28,11 @@
           "default": "unknown",
           "minLength": 3
         },
+        "content": {
+          "title": "type",
+          "type": "string",
+          "minLength": 3
+        },
         "objects": {
           "title": "objects",
           "type": "array",

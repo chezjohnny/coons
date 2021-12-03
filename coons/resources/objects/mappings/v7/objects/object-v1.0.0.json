@@ -13,6 +13,9 @@
           "type": {
             "type": "keyword"
           },
+          "content": {
+            "type": "text"
+          },
           "objects": {
             "type": "object",
             "properties": {
