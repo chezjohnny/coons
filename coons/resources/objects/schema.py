@@ -47,6 +47,7 @@ class MetadataSchema(Schema):
 
     name = fields.Str(required=True, validate=validate.Length(min=3))
     type = fields.Str(required=True, validate=validate.Length(min=3))
+    content = fields.Str(validate=validate.Length(min=3))
     files = fields.Dict()
     objects = fields.List(fields.Nested(RDFObjectsSchema))
 

@@ -19,6 +19,11 @@ if [ ! -f $pipfile_lock_path ]; then
     pipenv lock --dev
 fi
 
+section "Install requirement" "info"
+pipenv run pip install --upgrade pip
+# to avoid fs error module installation
+pipenv run pip install "setuptools<58"
+
 # Installs all packages specified in Pipfile.lock
 section "Installing dependencies" "info"
 pipenv sync --dev

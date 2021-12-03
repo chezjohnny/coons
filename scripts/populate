@@ -10,7 +10,7 @@ set -e
 # Create a report
 report_id=$(curl -k -s --header "Content-Type: application/json" \
  --request POST \
- --data '{"metadata": {"name": "Several days to build Jazz Bass", "type": "report"}}' \
+ --data '{"metadata": {"name": "Several days to build Jazz Bass", "type": "report", "content": "Description"}}' \
  https://localhost:5000/api/objects?prettyprint=1|grep '"id":'|cut -d\" -f4)
 
 echo "=== Report create with id: $report_id"
