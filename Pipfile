@@ -13,9 +13,7 @@ marshmallow = ">=3.0.0,<4.0.0"
 uwsgi = ">=2.0"
 uwsgi-tools = ">=1.1.1"
 uwsgitop = ">=0.11"
-# Fixes fs installation package error
-setuptools = "<58"
-coons = {editable = true, path = "."}
+setuptools = "<58.0.0"
 
 [dev-packages]
 pytest-invenio = ">=1.4.1,<1.5.0"
@@ -23,6 +21,7 @@ Sphinx = ">=3.0.0,<4"
 # ipython bug
 jedi = "<0.18.0"
 parso = "<0.8.0"
+coons = {editabls = true, path = "."}
 
 [scripts]
 test = "pytest"

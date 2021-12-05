@@ -15,12 +15,12 @@
       <title>Admin</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <base href="/u">
-      {{ node_assets('@coons-ui/core', ['styles.*css'], 'css') }}
+      {{ node_assets('@coons-ui/core/dist/coons-ui', ['styles.*css'], 'css') }}
   </head>
 
   <body>
       <app-root></app-root>
-      {{ node_assets('@coons-ui/core', patterns=['runtime.*.js','polyfills.*.js', 'main.*.js'], tags='defer') }}
+      {{ node_assets('@coons-ui/core/dist/coons-ui', patterns=['runtime.*.js','polyfills.*.js', 'main.*.js'], tags='defer') }}
   </body>
 
   </html>
