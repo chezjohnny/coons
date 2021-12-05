@@ -14,17 +14,24 @@
 # image (built with Dockerfile.base) which only includes your Python
 # dependencies.
 
-ARG DEPENDENCIES_VERSION=latest
-FROM coons-base:${DEPENDENCIES_VERSION}
+ARG VERSION=latest
+FROM coons-base:${VERSION}
 
-COPY ./ .
+USER 0
+
+WORKDIR ${WORKING_DIR}/src
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
+COPY --chown=invenio:invenio  . ${WORKING_DIR}/src
 
-RUN pip install . && \
-    invenio collect -v  && \
-    invenio webpack create && \
+# invenio user
+USER 1000
+
+RUN pipenv install --skip-lock  . && \
+    npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ./ui/coons-ui-core-1.0.0-alpha.0.tgz  --prefix "/invenio/var/instance/static" && \
+    pipenv run invenio collect -v  && \
+    pipenv run invenio webpack create && \
     # --unsafe needed because we are running as root
-    invenio webpack install --unsafe && \
-    invenio webpack build
+    pipenv run invenio webpack install && \
+    pipenv run invenio webpack build
 
 ENTRYPOINT [ "bash", "-c"]
