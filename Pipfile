@@ -22,6 +22,7 @@ Sphinx = ">=3.0.0,<4"
 jedi = "<0.18.0"
 parso = "<0.8.0"
 coons = {editabls = true, path = "."}
+flask-debugtoolbar = "*"
 
 [scripts]
 test = "pytest"

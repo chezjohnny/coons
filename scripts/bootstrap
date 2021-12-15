@@ -44,9 +44,9 @@ npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ../coon
 
 # Build assets
 section "Collect static files" "info"
-FLASK_DEBUG=False PYTHONWARNINGS="ignore"  pipenv run invenio collect -v
+FLASK_DEBUG=False PYTHONWARNINGS="ignore" pipenv run invenio collect -v
 
 section "Install webpack assets" "info"
-pipenv run invenio webpack clean buildall
+PYTHONWARNINGS="ignore" pipenv run invenio webpack clean buildall
 
 message "\nBootstrap finished successfully" "success"

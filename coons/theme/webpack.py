@@ -12,7 +12,7 @@ from invenio_assets.webpack import WebpackThemeBundle
 theme = WebpackThemeBundle(
     __name__,
     'assets',
-    default='semantic-ui',
+    default='bootstrap3',
     themes={
         'bootstrap3': dict(
             entry={
@@ -22,16 +22,16 @@ theme = WebpackThemeBundle(
             dependencies={},
             aliases={},
         ),
-        'semantic-ui': dict(
-            entry={
-                'coons-preview': './js/coons/previewer.js',
-            },
-            dependencies={
-                # add any additional npm dependencies here...
-            },
-            aliases={
-                '../../theme.config$': 'less/coons/theme.config',
-            },
-        ),
+        # 'semantic-ui': dict(
+        #     entry={
+        #         'coons-preview': './js/coons/previewer.js',
+        #     },
+        #     dependencies={
+        #         # add any additional npm dependencies here...
+        #     },
+        #     aliases={
+        #         '../../theme.config$': 'less/coons/theme.config',
+        #     },
+        # ),
     }
 )

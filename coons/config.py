@@ -175,8 +175,14 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {
     'default-src': ["'self'", "'unsafe-inline'"],
     'object-src': ["'none'"],
-    'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://maxcdn.bootstrapcdn.com"],
-    'font-src': ["'self'", "data:", "https://fonts.gstatic.com", "https://maxcdn.bootstrapcdn.com"],
+    'style-src': [
+        "'self'", "'unsafe-inline'", "https://fonts.googleapis.com",
+        "https://maxcdn.bootstrapcdn.com"
+    ],
+    'font-src': [
+        "'self'", "data:", "https://fonts.gstatic.com",
+        "https://maxcdn.bootstrapcdn.com"
+    ]
 }
 
 # #: for legacy compatibility
