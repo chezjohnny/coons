@@ -6,42 +6,53 @@
 # Coons is free software; you can redistribute it and/or modify it under the
 # terms of the MIT License; see LICENSE file for more details.
 
+echo "=== Creating admin user"
+pipenv run invenio users create -a admin@coons.ch --password administrator
+pipenv run invenio user confirm admin@coons.ch
+pipenv run invenio roles add admin@coons.ch admin
+
+echo "=== Creating demo user"
+pipenv run invenio users create -a demo@coons.ch --password demodemo
+pipenv run invenio user confirm demo@coons.ch
+pipenv run invenio user token -n demo -u demo@coons.ch -t demo
+
 set -e
+
 # Create a report
 report_id=$(curl -k -s --header "Content-Type: application/json" \
  --request POST \
  --data '{"metadata": {"name": "Several days to build Jazz Bass", "type": "report", "content": "Description"}}' \
- https://localhost:5000/api/objects?prettyprint=1|grep '"id":'|cut -d\" -f4)
+ https://localhost:5000/api/objects?prettyprint=1\&access_token=demo|grep '"id":'|cut -d\" -f4)
 
 echo "=== Report create with id: $report_id"
 
 echo "=== Creating file"
-curl -k -s -X POST --header "Content-Type: application/json" --data '[{"key": "test.pdf", "title": "PDF Document"}]' https://localhost:5000/api/objects/$report_id/files
+curl -k -s -X POST --header "Content-Type: application/json" --data '[{"key": "test.pdf", "title": "PDF Document"}]' https://localhost:5000/api/objects/$report_id/files\?access_token=demo
 
 echo "=== Uploading file"
-curl -k -i --header "Content-Type: application/octet-stream"  -X PUT  --data-binary @./data/files/test.pdf https://localhost:5000/api/objects/$report_id/files/test.pdf/content
-curl -k -s  -X POST https://localhost:5000/api/objects/$report_id/files/test.pdf/commit
+curl -k -i --header "Content-Type: application/octet-stream"  -X PUT  --data-binary @./data/files/test.pdf https://localhost:5000/api/objects/$report_id/files/test.pdf/content\?access_token=demo
+curl -k -s  -X POST https://localhost:5000/api/objects/$report_id/files/test.pdf/commit?access_token=demo
 
 # Create a project
 echo "=== Creating a project Document"
 project_id=$(curl -k --header "Content-Type: application/json" \
  --request POST \
  --data "{\"metadata\": {\"name\": \"Build a Jazz Bass\", \"type\": \"project\", \"objects\": [{\"\$ref\": \"https://coons.io/api/objects/$report_id\", \"predicate\": \"documentation\"}]}}" \
- https://localhost:5000/api/objects?prettyprint=1|grep '"id":'|cut -d\" -f4)
+ https://localhost:5000/api/objects?prettyprint=1\&access_token=demo|grep '"id":'|cut -d\" -f4)
 
 # echo "=== Project create with id: $project_id"
 
 echo "=== Creating file"
-curl -k -s -X POST --header "Content-Type: application/json" --data '[{"key": "logo.png", "title": "Logo"}]' https://localhost:5000/api/objects/$project_id/files
+curl -k -s -X POST --header "Content-Type: application/json" --data '[{"key": "logo.png", "title": "Logo"}]' https://localhost:5000/api/objects/$project_id/files\?access_token=demo
 
 echo "=== Uploading file"
-curl -k -i --header "Content-Type: application/octet-stream"  -X PUT  --data-binary @./data/files/logo.png https://localhost:5000/api/objects/$project_id/files/logo.png/content
-curl -k -s  -X POST https://localhost:5000/api/objects/$project_id/files/logo.png/commit
+curl -k -i --header "Content-Type: application/octet-stream"  -X PUT  --data-binary @./data/files/logo.png https://localhost:5000/api/objects/$project_id/files/logo.png/content?access_token=demo
+curl -k -s  -X POST https://localhost:5000/api/objects/$project_id/files/logo.png/commit?access_token=demo
 
 
 
 curl -k --header "Content-Type: application/json" \
  --request PUT \
  --data "[\"${report_id}\",\"${project_id}\"]" \
- https://localhost:5000/api/sticky
+ https://localhost:5000/api/sticky?access_token=demo
 

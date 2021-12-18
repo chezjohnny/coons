@@ -16,6 +16,7 @@ You overwrite and set instance-specific configuration by either:
 from datetime import timedelta
 
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+from invenio_oauthclient.contrib import github
 from invenio_previewer.config import PREVIEWER_PREFERENCE as BASE_PREFERENCE
 
 
@@ -66,6 +67,14 @@ THEME_FRONTPAGE = True
 THEME_FRONTPAGE_TITLE = _('🦝 Coons')
 # #: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'coons/frontpage.html'
+
+USERPROFILES_BASE_TEMPLATE = 'invenio_theme/page.html'
+USERPROFILES_SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+
+
+OAUTHCLIENT_REMOTE_APPS = dict(
+    github=github.REMOTE_APP
+)
 
 # UI
 # ==

@@ -8,6 +8,14 @@
       "title": "Persistant Identifier Value",
       "type": "string"
     },
+    "owners": {
+      "title": "Owner User ID",
+      "type": "array",
+      "items": {
+        "title": "Database Identifier Value",
+        "type": "integer"
+      }
+    },
     "metadata": {
       "title": "Object metadata",
       "type": "object",

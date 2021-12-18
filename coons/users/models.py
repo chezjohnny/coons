@@ -7,6 +7,7 @@
 
 """Objects models."""
 
+from invenio_accounts.models import User
 from invenio_db import db
 from sqlalchemy_utils.types import UUIDType
 
@@ -16,5 +17,12 @@ class StickyObjectsMetadata(db.Model):
 
     __tablename__ = 'sticky_objects'
 
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey(User.id),
+        primary_key=True
+    )
+
+    user = db.relationship(User, backref=db.backref("parent", uselist=False))
+
     objects_ids = db.Column(db.JSON)
