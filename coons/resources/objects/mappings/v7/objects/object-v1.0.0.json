@@ -4,6 +4,9 @@
       "id": {
         "type": "keyword"
       },
+      "owners": {
+        "type": "long"
+      },
       "metadata": {
         "type": "object",
         "properties": {

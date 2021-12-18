@@ -71,7 +71,8 @@ setup(
             'objects = coons.resources.objects.mappings',
         ],
         'flask.commands': [
-            'objects = coons.resources.objects.cli:objects'
+            'objects = coons.resources.objects.cli:objects',
+            'user = coons.cli:user'
         ]
     },
     classifiers=[

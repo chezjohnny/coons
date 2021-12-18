@@ -13,6 +13,7 @@ this file.
 """
 
 from flask import Blueprint, render_template
+from flask_login import current_user, login_required
 
 blueprint = Blueprint(
     'coons',
@@ -24,6 +25,7 @@ blueprint = Blueprint(
 
 @blueprint.route('/u/', defaults={'path': ''})
 @blueprint.route('/u/<path:path>')
+@login_required
 def users(path):
     """Return professional view."""
     return render_template('coons/u.html')

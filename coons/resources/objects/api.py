@@ -7,9 +7,11 @@
 
 """Object python API."""
 
+from flask_login import current_user
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_records.dumpers import ElasticsearchDumper, ElasticsearchDumperExt
+from invenio_records.extensions import RecordExtension
 from invenio_records.systemfields import ConstantField, ModelField
 from invenio_records_resources.records.api import Record as RecordBase
 from invenio_records_resources.records.api import RecordFile as RecordFileBase
@@ -19,6 +21,16 @@ from werkzeug.local import LocalProxy
 
 from ...proxies import current_coons
 from . import models
+
+
+class AddOwnerExtensionExtension(RecordExtension):
+    """Defines the methods needed by an extension."""
+
+    def post_create(self, record):
+        """Called before a record is created."""
+        if hasattr(current_user, 'id'):
+            record.setdefault('owners', []).append(current_user.id)
+        return record
 
 
 class ElasticsearchDumperObjectsExt(ElasticsearchDumperExt):
@@ -58,8 +70,8 @@ class RecordFile(RecordFileBase):
     record_cls = LocalProxy(lambda: RecordWithFile)
 
 
-class Record(RecordBase):
-    """Object record API."""
+class RecordWithFile(RecordBase):
+    """Object record with file API."""
 
     # Configuration
     model_cls = models.RecordMetadata
@@ -73,10 +85,7 @@ class Record(RecordBase):
     pid = PIDField('id', provider=RecordIdProviderV2)
 
     dumper = ElasticsearchDumper(extensions=[ElasticsearchDumperObjectsExt()])
-
-
-class RecordWithFile(Record):
-    """Object record with file API."""
+    _extensions = [AddOwnerExtensionExtension()]
 
     files = FilesField(store=False, file_cls=RecordFile)
     bucket_id = ModelField()

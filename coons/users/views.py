@@ -13,6 +13,7 @@ this file.
 """
 
 from flask import Blueprint, jsonify, request
+from flask_login import current_user, login_required
 from invenio_db import db
 
 from .models import StickyObjectsMetadata
@@ -27,11 +28,13 @@ api_blueprint = Blueprint(
 
 
 @api_blueprint.route('/sticky', methods=['GET', 'PUT'])
+@login_required
 def sticky():
     """Sticky API."""
-    s = StickyObjectsMetadata.query.first()
+    owner = current_user
+    s = StickyObjectsMetadata.query.filter_by(user_id=owner.id).first()
     if not s:
-        s = StickyObjectsMetadata(objects_ids=[])
+        s = StickyObjectsMetadata(objects_ids=[], user=owner)
         db.session.add(s)
         db.session.commit()
         ids = []
