@@ -50,6 +50,7 @@ setup(
         ],
         'invenio_base.api_blueprints': [
             'sticky = coons.users.views:api_blueprint',
+            'coons-ext = coons.views:api_blueprint',
         ],
         'invenio_assets.webpack': [
             'coons_theme = coons.theme.webpack:theme'

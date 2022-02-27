@@ -7,6 +7,10 @@
 
 """Coons Main Application."""
 
+from coons.resources.objects.resource import CustomFileResourceConfig, \
+    CustomRecordResourceConfig
+from coons.resources.objects.service import FileServiceConfig, ServiceConfig
+
 from .theme.filters import node_assets
 
 
@@ -23,7 +27,7 @@ class Coons(object):
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
-        self.create_resources()
+        self.create_resources(app)
         app.extensions['coons'] = self
 
     def init_config(self, app):
@@ -32,27 +36,26 @@ class Coons(object):
             if k.startswith('COONS_APP_'):
                 app.config.setdefault(k, getattr(app.config, k))
 
-    def create_resources(self):
+    def create_resources(self, app):
         """."""
         # imports should be here to avoid test errors
-        from .resources.objects.resource import CustomFileActionResource, \
-            CustomFileResource, CustomRecordResource
+        from .resources.objects.resource import CustomFileResource, \
+            CustomRecordResource
         from .resources.objects.service import FileService, Service
 
         # /api/objects
+        objects_service = Service(ServiceConfig())
         objects_resource = CustomRecordResource(
-            service=Service())
+            service=objects_service,
+            config=CustomRecordResourceConfig)
         self.resources['obj'] = objects_resource
 
         # /api/objects/<>/files
+        objects_files_service = FileService(FileServiceConfig())
         objects_files_resource = CustomFileResource(
-            service=FileService())
+            service=objects_files_service,
+            config=CustomFileResourceConfig())
         self.resources['obj_files'] = objects_files_resource
-
-        # /api/objects/<>/files/<>/actions
-        objects_files_actions_resource = CustomFileActionResource(
-            service=FileService())
-        self.resources['obj_files_actions'] = objects_files_actions_resource
 
 
 class CoonsAPI(Coons):
@@ -66,11 +69,7 @@ class CoonsAPI(Coons):
     def register_blueprints(self, app):
         """Register the blueprints."""
         app.register_blueprint(
-            self.resources['obj'].as_blueprint('objects'))
+            self.resources['obj'].as_blueprint())
 
         app.register_blueprint(
-            self.resources['obj_files'].as_blueprint('objects_files'))
-
-        app.register_blueprint(
-            self.resources['obj_files_actions'].as_blueprint(
-                'objects_files_actions'))
+            self.resources['obj_files'].as_blueprint())

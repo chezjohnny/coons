@@ -21,7 +21,7 @@ set -o nounset
 
 # Check vulnerabilities
 # TODO: solve this
-pipenv check -i 42852 -i 42050 -i 42194 -i 40459 -i 42498
+pipenv check -i 42852 -i 42050 -i 42194 -i 40459 -i 42498 -i 44501 -i 45183
 
 pipenv run python -m check_manifest --ignore ".*-requirements.txt"
 # eval "$(docker-services-cli up --db ${DB:-postgresql} --search ${SEARCH:-elasticsearch} --cache ${CACHE:-redis} --mq ${MQ:-rabbitmq} --env)"

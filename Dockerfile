@@ -30,7 +30,6 @@ RUN pipenv install --skip-lock  . && \
     npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ./ui/coons-ui-core-1.0.0-alpha.0.tgz  --prefix "/invenio/var/instance/static" && \
     pipenv run invenio collect -v  && \
     pipenv run invenio webpack create && \
-    # --unsafe needed because we are running as root
     pipenv run invenio webpack install && \
     pipenv run invenio webpack build
 

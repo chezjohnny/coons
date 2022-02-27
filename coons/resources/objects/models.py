@@ -10,7 +10,7 @@
 from invenio_db import db
 from invenio_files_rest.models import Bucket
 from invenio_records.models import RecordMetadataBase
-from invenio_records_resources.records.models import RecordFileBase
+from invenio_records_resources.records.models import FileRecordModelMixin
 from sqlalchemy_utils.types import UUIDType
 
 
@@ -19,13 +19,17 @@ class RecordMetadata(db.Model, RecordMetadataBase):
 
     __tablename__ = 'objects'
 
+    # expires_at = db.Column(
+    #     db.DateTime(),
+    #     nullable=True
+    # )
     bucket_id = db.Column(UUIDType, db.ForeignKey(Bucket.id))
     bucket = db.relationship(Bucket)
 
 
-class RecordFile(db.Model, RecordFileBase):
+class FileRecordMetadata(db.Model, RecordMetadataBase, FileRecordModelMixin):
     """Model for Object module record files."""
 
-    record_model_cls = RecordMetadata
+    __record_model_cls__ = RecordMetadata
 
     __tablename__ = 'objects_files'
