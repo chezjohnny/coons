@@ -22,10 +22,10 @@ def _create_record(client):
                 {"name": "Ellis Jonathan"},
             ]
         }
-    url = "https://localhost:5000/records/"
+    url = "https://localhost:5000/objects/"
     response = client.post(url, data=json.dumps(data), headers=headers)
     assert response.status_code == 201
-    current_search.flush_and_refresh("records")
+    current_search.flush_and_refresh("objects")
 
     rec = response.get_json()
     pid_value = rec["id"]
@@ -34,7 +34,7 @@ def _create_record(client):
 
 def _get_record(client, pid_value):
     """Get record by PID."""
-    url = "https://localhost:5000/records/{}".format(pid_value)
+    url = "https://localhost:5000/objects/{}".format(pid_value)
     response = client.get(url)
     assert response.status_code == 200
     rec = response.get_json()
@@ -43,10 +43,10 @@ def _get_record(client, pid_value):
 
 # def test_record_creation(client, location):
 #     """Test create record using REST API."""
-#     pid_value, rec = _create_record(client)
-#     assert "_bucket" not in rec
-#     assert "files" not in rec
-#     assert "$schema" not in rec['metadata']
+    # pid_value, rec = _create_record(client)
+    # assert "_bucket" not in rec
+    # assert "files" not in rec
+    # assert "$schema" not in rec['metadata']
 
 #     # retrieve record
 #     rec = _get_record(client, pid_value)

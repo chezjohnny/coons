@@ -13,8 +13,8 @@ from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_records.dumpers import ElasticsearchDumper, ElasticsearchDumperExt
 from invenio_records.extensions import RecordExtension
 from invenio_records.systemfields import ConstantField, ModelField
+from invenio_records_resources.records.api import FileRecord as FileRecordBase
 from invenio_records_resources.records.api import Record as RecordBase
-from invenio_records_resources.records.api import RecordFile as RecordFileBase
 from invenio_records_resources.records.systemfields import FilesField, \
     IndexField, PIDField, PIDStatusCheckField
 from werkzeug.local import LocalProxy
@@ -28,6 +28,7 @@ class AddOwnerExtensionExtension(RecordExtension):
 
     def post_create(self, record):
         """Called before a record is created."""
+        print('===========> post create')
         if hasattr(current_user, 'id'):
             record.setdefault('owners', []).append(current_user.id)
         return record
@@ -63,15 +64,15 @@ class ElasticsearchDumperObjectsExt(ElasticsearchDumperExt):
         pass
 
 
-class RecordFile(RecordFileBase):
+class FileRecord(FileRecordBase):
     """Object record file API."""
 
-    model_cls = models.RecordFile
-    record_cls = LocalProxy(lambda: RecordWithFile)
+    model_cls = models.FileRecordMetadata
+    # record_cls = LocalProxy(lambda: RecordWithFile)
 
 
-class RecordWithFile(RecordBase):
-    """Object record with file API."""
+class Record(RecordBase):
+    """."""
 
     # Configuration
     model_cls = models.RecordMetadata
@@ -80,13 +81,23 @@ class RecordWithFile(RecordBase):
     schema = ConstantField(
         '$schema', 'https://coons.io/schemas/objects/object-v1.0.0.json')
 
+    # expires_at = ModelField()
     index = IndexField('objects-object-v1.0.0', search_alias='objects')
 
     pid = PIDField('id', provider=RecordIdProviderV2)
 
+    # is_published = PIDStatusCheckField(status=PIDStatus.REGISTERED
+    # conceptpid = PIDField('conceptid', provider=RecordIdProviderV2)
+
     dumper = ElasticsearchDumper(extensions=[ElasticsearchDumperObjectsExt()])
+
     _extensions = [AddOwnerExtensionExtension()]
 
-    files = FilesField(store=False, file_cls=RecordFile)
+
+class RecordWithFile(Record):
+    """Object record with file API."""
+
+    files = FilesField(store=False, file_cls=FileRecord)
     bucket_id = ModelField()
     bucket = ModelField(dump=False)
+    _extensions = [AddOwnerExtensionExtension()]

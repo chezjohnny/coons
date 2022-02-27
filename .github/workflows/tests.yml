@@ -99,7 +99,6 @@ jobs:
 
       - name: Install the application
         run: |
-          pipenv install --skip-lock "setuptools<58"
           pipenv sync --dev
           pipenv run pip install -e .
           pipenv run invenio collect -v

@@ -8,8 +8,8 @@
 
 """Objects schema."""
 
-from invenio_records_resources.resources import search_link_params, \
-    search_link_when
+# from invenio_records_resources.resources import search_link_params, \
+#     search_link_when
 from marshmallow import INCLUDE, Schema, ValidationError, fields, pre_load, \
     validate
 from marshmallow_utils.fields import Link, Links
@@ -141,25 +141,25 @@ class RecordLinksSchema(Schema):
     )
 
 
-class SearchLinksSchema(Schema):
-    """Schema for a search result's links."""
+# class SearchLinksSchema(Schema):
+#     """Schema for a search result's links."""
 
-    # NOTE:
-    #   - /api prefix is needed here because api routes are mounted on /api
-    self = Link(
-        template=URITemplate("/api/objects{?params*}"),
-        permission="search",
-        params=search_link_params(0),
-    )
-    prev = Link(
-        template=URITemplate("/api/objects{?params*}"),
-        permission="search",
-        params=search_link_params(-1),
-        when=search_link_when(-1)
-    )
-    next = Link(
-        template=URITemplate("/api/objects{?params*}"),
-        permission="search",
-        params=search_link_params(+1),
-        when=search_link_when(+1)
-    )
+#     # NOTE:
+#     #   - /api prefix is needed here because api routes are mounted on /api
+#     self = Link(
+#         template=URITemplate("/api/objects{?params*}"),
+#         permission="search",
+#         params=search_link_params(0),
+#     )
+#     prev = Link(
+#         template=URITemplate("/api/objects{?params*}"),
+#         permission="search",
+#         params=search_link_params(-1),
+#         when=search_link_when(-1)
+#     )
+#     next = Link(
+#         template=URITemplate("/api/objects{?params*}"),
+#         permission="search",
+#         params=search_link_params(+1),
+#         when=search_link_when(+1)
+#     )
