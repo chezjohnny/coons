@@ -28,18 +28,17 @@
         "name": {
           "title": "name",
           "type": "string",
-          "minLength": 3
+          "minLength": 1
         },
         "type": {
           "title": "type",
           "type": "string",
           "default": "unknown",
-          "minLength": 3
+          "minLength": 1
         },
         "content": {
           "title": "type",
-          "type": "string",
-          "minLength": 3
+          "type": "string"
         },
         "objects": {
           "title": "objects",
