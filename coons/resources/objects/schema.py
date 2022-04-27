@@ -25,9 +25,9 @@ class RDFObjectsSchema(Schema):
         unknown = INCLUDE
 
     _ref = fields.Str(required=True, attribute="$ref", data_key="$ref")
-    predicate = fields.Str(required=True, validate=validate.Length(min=3))
-    name = fields.Str(dump_only=True, validate=validate.Length(min=3))
-    type = fields.Str(dump_only=True, validate=validate.Length(min=3))
+    predicate = fields.Str(required=True, validate=validate.Length(min=1))
+    name = fields.Str(dump_only=True, validate=validate.Length(min=1))
+    type = fields.Str(dump_only=True, validate=validate.Length(min=1))
 
     @pre_load
     def clean(self, data, **kwargs):
@@ -45,9 +45,9 @@ class MetadataSchema(Schema):
 
         unknown = INCLUDE
 
-    name = fields.Str(required=True, validate=validate.Length(min=3))
-    type = fields.Str(required=True, validate=validate.Length(min=3))
-    content = fields.Str(validate=validate.Length(min=3))
+    name = fields.Str(required=True, validate=validate.Length(min=1))
+    type = fields.Str(required=True, validate=validate.Length(min=1))
+    content = fields.Str()
     files = fields.Dict()
     objects = fields.List(fields.Nested(RDFObjectsSchema))
 

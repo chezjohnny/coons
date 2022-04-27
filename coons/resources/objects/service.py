@@ -21,9 +21,13 @@ from invenio_records_resources.services.records.facets import TermsFacet
 from invenio_records_resources.services.records.params import FacetsParam, \
     PaginationParam, QueryStrParam, SortParam
 
+from coons.resources.objects.results import HilightRecordList
+
 from .api import RecordWithFile
 from .identities import system_identity
+from .params.highlight import HighlightParams
 from .permissions import PermissionPolicy
+from .results import HilightRecordList
 from .schema import RecordSchema
 
 
@@ -62,7 +66,8 @@ class SearchOptions(BaseSearchOptions):
         QueryStrParam,
         PaginationParam,
         SortParam,
-        PreFacetsParam
+        PreFacetsParam,
+        HighlightParams
     ]
 
 
@@ -75,6 +80,8 @@ class ServiceConfig(RecordServiceConfig):
     permission_policy_cls = PermissionPolicy
 
     record_cls = RecordWithFile
+
+    result_list_cls = HilightRecordList
 
     schema = RecordSchema
 
