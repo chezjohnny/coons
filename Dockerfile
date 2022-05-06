@@ -26,11 +26,14 @@ COPY --chown=invenio:invenio  . ${WORKING_DIR}/src
 # invenio user
 USER 1000
 
-RUN pipenv install --skip-lock  . && \
-    npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ./ui/coons-ui-core-1.0.0-alpha.0.tgz  --prefix "/invenio/var/instance/static" && \
+RUN pipenv install --skip-lock . && \
+    npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ./ui/coons-ui-core-1.1.0.tgz  --prefix "/invenio/var/instance/static" && \
     pipenv run invenio collect -v  && \
     pipenv run invenio webpack create && \
     pipenv run invenio webpack install && \
-    pipenv run invenio webpack build
+    pipenv run invenio webpack build && \
+    pipenv run invenio webpack clean && \
+    npm cache clean --force && \
+    pipenv run pip cache purge
 
 ENTRYPOINT [ "bash", "-c"]
