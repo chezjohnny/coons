@@ -12,6 +12,7 @@ from coons.resources.objects.resource import CustomFileResourceConfig, \
 from coons.resources.objects.service import FileServiceConfig, ServiceConfig
 
 from .theme.filters import node_assets
+from .version import __version__
 
 
 class Coons(object):
@@ -23,6 +24,7 @@ class Coons(object):
         if app:
             self.init_app(app)
             app.add_template_global(node_assets, name='node_assets')
+            app.jinja_env.globals['version'] = __version__
 
     def init_app(self, app):
         """Flask application initialization."""

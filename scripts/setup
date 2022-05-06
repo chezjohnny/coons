@@ -20,4 +20,3 @@ pipenv run invenio files location --default 'default-location'  $(pipenv run inv
 # Create admin role to restrict access
 pipenv run invenio roles create admin
 pipenv run invenio access allow superuser-access role admin
-

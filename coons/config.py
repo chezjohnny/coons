@@ -68,6 +68,8 @@ THEME_FRONTPAGE_TITLE = _('🦝 Coons')
 # #: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'coons/frontpage.html'
 
+THEME_FOOTER_TEMPLATE = 'coons/footer.html'
+
 USERPROFILES_BASE_TEMPLATE = 'invenio_theme/page.html'
 USERPROFILES_SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 
@@ -209,3 +211,20 @@ APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {
 
 # TODO: remove this in production
 RATELIMIT_ENABLED = False
+
+COONS_SUPPORTED_MIME_TYPES = "*"
+
+ACCOUNTS_REST_AUTH_VIEWS = {
+    "login": "invenio_accounts.views.rest:LoginView",
+    "logout": "invenio_accounts.views.rest:LogoutView",
+    "user_info": "coons.rest:UserInfoView",
+    "register": "invenio_accounts.views.rest:RegisterView",
+    "forgot_password": "invenio_accounts.views.rest:ForgotPasswordView",
+    "reset_password": "invenio_accounts.views.rest:ResetPasswordView",
+    "change_password": "invenio_accounts.views.rest:ChangePasswordView",
+    "send_confirmation":
+        "invenio_accounts.views.rest:SendConfirmationEmailView",
+    "confirm_email": "invenio_accounts.views.rest:ConfirmEmailView",
+    "sessions_list": "invenio_accounts.views.rest:SessionsListView",
+    "sessions_item": "invenio_accounts.views.rest:SessionsItemView"
+}

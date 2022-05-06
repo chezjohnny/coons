@@ -40,7 +40,7 @@ section "Search static folder location" "info"
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)" 2> /dev/null  |grep static_folder| cut -d: -f2-)
 
 section "Install angular application into ${static_folder}" "info"
-npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ../coons-ui/coons-ui-core-1.0.0.tgz  --prefix "${static_folder}"
+npm install --loglevel=error --no-save --only=prod --no-fund --no-audit  ../coons-ui/coons-ui-core-1.1.0.tgz  --prefix "${static_folder}"
 
 # Build assets
 section "Collect static files" "info"
